@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/7d0ddf9524.js" crossorigin="anonymous"></script>
+    <title>Details</title>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+        }
+        th,td{
+            text-align:start;
+            border:2px solid black;
+            padding:10px;
+        }
+        th{
+            background-color:red;
+        }
+        .table,.btns{
+            width: 50vw!important;
+        }
+        
+        @media screen and (max-width:600px){
+            .table,.btns{
+                width: 90vw!important;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 px-2">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="float-end px-auto btn-light btn" href="#">Account</a>
+        </div>
+    </nav>
+    <h1 style='text-align:center;' class="my-2 p-3">Company Details...</h1>
+    <table style='border: 2px solid black; border-collapse: collapse; box-sizing: border-box; margin:auto;' class='table' id=`{{Details.id}}`>
+            <tr><th class="bg-danger">Company</th> <td> {{Details.Company_Name}}</td></tr>
+            <tr><th class="bg-danger">Website</th> <td> {{Details.Company_Website}}</td></tr>
+            <tr><th class="bg-danger">Phone_No.</th>  <td> {{Details.Company_Phone_Number}} </td></tr>
+            <tr><th class="bg-danger">Address</th><td> {{Details.Company_Address}} </td></tr>
+            <tr><th class="bg-danger">City</th><td> {{Details.Company_City}} </td></tr>
+            <tr><th class="bg-danger">State</th><td> {{Details.Company_State}} </td></tr>
+            <tr><th class="bg-danger">Country</th><td> {{Details.Company_Country}} </td></tr>
+            <tr><th class="bg-danger">Industry</th> <td> {{Details.Industry_List}}</td></tr>
+    </table>
+    <div class="btns my-2 mx-auto py-3 text-center">
+        <a href="{% url 'home' %}" class="btn btn-dark my-1 " ><i class="fas fa-arrow-left"></i>  Go Back</a>
+        <a href="{% url 'upCompany' Details.id %}" class="btn btn-primary my-1 " ><i class="fas fa-pen"></i>  Update</a>
+        <a href="{% url 'delCompany' Details.id %}" class="btn btn-primary my-1 " ><i class="fas fa-trash"></i>  Delete</a>
+    </div>
+    <footer class="bg-dark position-absolute bottom-0 w-100">
+        <hr class="text-primary" style="height:3px;">
+        <div class="d-flex justify-content-between container">
+            <p class="text-light text-center">© 2022 all rights reserved<br>by AKS.</p>
+            <div>
+                <a href="" class="btn btn-primary"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                <a href="" class="btn btn-primary"><i class="fa fa-github" aria-hidden="true"></i></i></a>
+                <a href="" class="btn btn-primary"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

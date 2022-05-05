@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/7d0ddf9524.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <title>AddCompany</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 px-2">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="float-end px-auto btn-light btn" href="#">Account</a>
+    </div>
+  </nav>
+  <h1 class="text-center my-2 p-3">Add a new Company</h1>
+  <form class='container mx-auto' id="compListForm">
+      {% csrf_token %}
+      <div class="row mb-3">
+        <label for="name" class="col-sm-2 col-form-label">Company Name</label>
+        <div class="col-sm-10">
+          <input type="name" class="form-control" id="name" name="name" required placeholder="name">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="website" class="col-sm-2 col-form-label">Company Website</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="website" name="website" required placeholder="website">
+        </div>
+      </div>
+      <div class="row mb-3">
+          <label for="phone" class="col-sm-2 col-form-label">Company Phone Number</label>
+          <div class="col-sm-10">
+            <input type="phone" class="form-control" id="phone" name="phone" required placeholder="phone number">
+          </div>
+        </div>
+      <div class="row mb-3">
+      <label for="address" class="col-sm-2 col-form-label">Company Address</label>
+      <div class="col-sm-10">
+          <input type="address" class="form-control" id="address" name="address" required placeholder="address">
+      </div>
+      </div>
+      <div class="row mb-3">
+      <label for="city" class="col-sm-2 col-form-label">Company City</label>
+      <div class="col-sm-10">
+          <input type="city" class="form-control" id="city" name="city" required placeholder="city">
+      </div>
+      </div>
+      <div class="row mb-3">
+      <label for="state" class="col-sm-2 col-form-label">Company State</label>
+      <div class="col-sm-10">
+          <input type="state" class="form-control" id="state" name="state" required placeholder="state">
+      </div>
+      </div>
+      <div class="row mb-3">
+      <label for="country" class="col-sm-2 col-form-label">Company Country</label>
+      <div class="col-sm-10">
+          <input type="country" class="form-control" id="country" name="country" required placeholder="country">
+      </div>
+      </div>
+      <div class="row mb-3">
+      <label for="industry" class="col-sm-2 col-form-label">Company Industry</label>
+      <div class="col-sm-10">
+          <select class="form-select" id="industry" name="industry" required>
+              <option selected value="None">Choose the Industry...</option>
+              <option value="Account">Account</option>
+              <option value="IT">IT</option>
+              <option value="Sales">Sales</option>
+              <option value="Health Care">Health Care</option>
+          </select>
+      </div>
+      </div>
+      <div class="text-end">
+        <button type="submit" class="btn btn-primary mx-2" >Save Company Details</button>
+        <a href="{% url 'home' %}" class="btn btn-dark" >Go Back</a>
+      </div>
+  </form>
+  <footer class="bg-dark mt-4">
+    <hr class="text-primary" style="height:10px;">
+    <div class="d-flex justify-content-between container">
+        <p class="text-light text-center">© 2022 all rights reserved<br>by AKS.</p>
+        <div>
+            <a href="" class="btn btn-primary"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+            <a href="" class="btn btn-primary"><i class="fa fa-github" aria-hidden="true"></i></i></a>
+            <a href="" class="btn btn-primary"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+        </div>
+    </div>
+  </footer> 
+  <script>
+      var payloadx = '';
+      var compListForm = document.getElementById('compListForm');
+      compListForm.addEventListener("submit", function(event) {
+          {% comment %} alert('Company Added Successfully'); {% endcomment %}
+          event.preventDefault();
+          var name = event.currentTarget.name.value;
+          var website = event.currentTarget.website.value;
+          var phone = event.currentTarget.phone.value;
+          var address = event.currentTarget.address.value;
+          var city = event.currentTarget.city.value;
+          var state = event.currentTarget.state.value;
+          var country = event.currentTarget.country.value;
+          var industry = event.currentTarget.industry.value;
+          const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+          {% comment %} console.log(csrftoken); {% endcomment %}
+          if(industry!='None'){
+
+              payloadx = {
+                  'name':name,
+                  'website':website,
+                  'phone':phone,
+                  'address':address,
+                  'city':city,
+                  'state':state,
+                  'country':country,
+                  'industry':industry,
+                  csrfmiddlewaretoken: csrftoken
+                  
+              }
+
+              $.ajax({
+                  type: "POST",
+                  url: "/addList/",
+                  data: payloadx,
+                  success:function(){
+                      alert('New Company  Details Added!!!');
+                      console.log(payloadx);
+                  }
+              });
+              
+          }
+          else{
+              alert('Please choose the Industry of the company...')
+          }    
+        });
+  </script>  
+</body>
+</html>
